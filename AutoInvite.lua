@@ -7,6 +7,7 @@ local default_invite = "invite";
 function AutoInvite_OnLoad()
 	this:RegisterEvent("CHAT_MSG_WHISPER");
 	this:RegisterEvent("PLAYER_ENTERING_WORLD");
+	this:RegisterEvent("CHAT_MSG_GUILD");
 	
 	SlashCmdList["AutoInvite"] = AutoInvite_SlashHandler;
 	SLASH_AutoInvite1 = "/AutoInvite";
@@ -31,7 +32,7 @@ end
 function AutoInvite_OnEvent(event)
 	if(event == "PLAYER_ENTERING_WORLD") then
 		AutoInvite_InitializeSetup();
-	elseif(event == "CHAT_MSG_WHISPER") then
+	elseif(event == "CHAT_MSG_WHISPER") or (event == "CHAT_MSG_GUILD") then
 		if(AutoInviteOptions[Realm][Player]["Status"] == "On") then
 			local what = arg1;
 			local who = arg2;
